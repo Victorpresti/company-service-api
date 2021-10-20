@@ -25,12 +25,12 @@ import java.util.Optional;
  */
 public interface UserService {
 
-	public User create (User user) throws Exception;
+	User create (User user) throws Exception;
 
-	public Optional<User> read (Long id) throws Exception;
+	Optional<User> read (Long id) throws Exception;
 
-	public User update (Long id, User detail) throws Exception;
+	User update (Long id, User detail) throws Exception;
 
-	public boolean delete (Long id) throws Exception;
+	boolean delete (Long id) throws Exception;
 }
 
