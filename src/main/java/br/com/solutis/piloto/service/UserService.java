@@ -32,5 +32,7 @@ public interface UserService {
 	User update (Long id, User detail) throws Exception;
 
 	boolean delete (Long id) throws Exception;
+
+	Abobora
 }
 
