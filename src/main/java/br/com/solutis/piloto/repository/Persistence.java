@@ -74,7 +74,7 @@ public class Persistence {
 	    entityManagerFactory.setDataSource(dataSource);
 	    entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 	    entityManagerFactory.setJpaDialect(new HibernateJpaDialect());
-	    entityManagerFactory.setPackagesToScan("br.com.ecommerce.ms.account.entity");
+	    entityManagerFactory.setPackagesToScan("br.com.solutis.piloto.entity");
 	    
 	    Map<String, String> props = new HashMap<String,String>();
 		

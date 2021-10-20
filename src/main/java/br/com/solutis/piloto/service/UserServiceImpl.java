@@ -40,13 +40,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Autowired
 	private IUserRepository iUserRepository;
-	
-	/**
-	 * Create new user.
-	 * 
-	 * @param user
-	 * @return Authentication token if created.
-	 */
+
 	@Override
 	public User create (User user) throws Exception {
 		
@@ -58,13 +52,7 @@ public class UserServiceImpl implements UserService {
 			throw new Exception(e.getMessage());
 		}
 	}
-	
-	/**
-	 * Get user.
-	 * 
-	 * @param id
-	 * @return User if found.
-	 */
+
 	@Override
 	public Optional<User> read (Long id) throws Exception {
 		
@@ -76,14 +64,7 @@ public class UserServiceImpl implements UserService {
 			throw new Exception(e.getMessage());
 		}
 	}
-	
-	/**
-	 * Update user.
-	 * 
-	 * @param id
-	 * @param detail
-	 * @return User if found.
-	 */
+
 	@Override
 	public User update (Long id, User detail) throws Exception {
 		
@@ -99,13 +80,7 @@ public class UserServiceImpl implements UserService {
 			throw new Exception(e.getMessage());
 		}
 	}
-	
-	/**
-	 * Delete user.
-	 * 
-	 * @param id
-	 * @return True if deleted.
-	 */
+
 	@Override
 	public boolean delete (Long id) throws Exception {
 		

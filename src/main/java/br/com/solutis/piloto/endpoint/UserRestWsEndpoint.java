@@ -108,5 +108,4 @@ public class UserRestWsEndpoint {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new APIGenericResponse(null, new StatusResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR)));
 		}		
 	}
-	
 }
