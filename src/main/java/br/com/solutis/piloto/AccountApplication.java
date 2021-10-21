@@ -30,7 +30,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ServletComponentScan
 @SpringBootApplication
 @EnableJpaRepositories
-@EnableCaching
 public class AccountApplication {
 
 	public static void main(String[] args) throws Exception {
@@ -39,7 +38,7 @@ public class AccountApplication {
 	
 	@Bean
 	public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
-	    return factory -> factory.setContextPath("/account/api/v1");
+	    return factory -> factory.setContextPath("/company/api/v1");
 	}
 
 }

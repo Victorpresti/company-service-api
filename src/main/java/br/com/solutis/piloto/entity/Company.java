@@ -19,29 +19,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author ProfitCode IT Solutions
  *
  */
 @Entity
-@Table(name = "Users", schema="account_service_schema")
+@Table(name = "Companies", schema="wisales_service_schema")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseEntity<Long> {
+public class Company {
 
 	private static final long serialVersionUID = -2096127641665459704L;
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idUser", nullable=false, unique=true, insertable=true, updatable=true )
-	private Long id;
-	
-	@Column(name="name",  length=250, nullable=false, unique=false)
-	private String name;
-	
-	@Column(name="email", length=250, nullable=false, unique=false)
-	private String email;
 
+	@Id
+	@Column(name="cnpj", length=14, nullable=false, unique=true)
+	private String cnpj;
+
+	@Column(name="reasonSocial", length=250, nullable=false, unique=false)
+	private String reasonSocial;
+
+	@Column(name="fantasyName", length=250, nullable=false, unique=false)
+	private String fantasyName;
+
+	@Column(name="cadastralSituation", nullable=false, unique=false)
+	private Integer cadastralSituation;
+
+	@Column(name="cadastralSituationDate", nullable=false, unique=false)
+	private Date cadastralSituationDate;
 }

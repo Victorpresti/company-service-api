@@ -14,7 +14,8 @@
  */
 package br.com.solutis.piloto.service;
 
-import br.com.solutis.piloto.entity.User;
+import br.com.solutis.piloto.entity.Company;
+
 import java.util.Optional;
 
 /**
@@ -23,14 +24,14 @@ import java.util.Optional;
  * Service interface to User.
  *
  */
-public interface UserService {
+public interface CompanyService {
 
-	User create (User user) throws Exception;
+	Company create (Company company) throws Exception;
 
-	Optional<User> read (Long id) throws Exception;
+	Optional<Company> read (String cnpj) throws Exception;
 
-	User update (Long id, User detail) throws Exception;
+	Company update (String cnpj, Company detail) throws Exception;
 
-	boolean delete (Long id) throws Exception;
+	boolean delete (String cnpj) throws Exception;
 }
 

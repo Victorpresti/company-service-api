@@ -16,6 +16,8 @@ package br.com.solutis.piloto.repository;
 
 import br.com.solutis.piloto.util.AccountServiceUtil;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,16 +41,17 @@ import java.util.Map;
  * JPA Persistence configurations.
  *
  */
+
+@Log4j2
 @Configuration
 @EnableJpaRepositories(basePackages = "br.com.solutis.piloto.entity")
-@Slf4j
 public class Persistence {
 
 	@Bean
     public ComboPooledDataSource dataSource() {
-        
+
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
- 
+
         try {
             dataSource.setDriverClass(System.getenv().get("DATABASE_DRIVER_CLASS"));
         } catch (PropertyVetoException e){

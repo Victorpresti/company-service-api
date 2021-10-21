@@ -14,9 +14,9 @@
  */
 package br.com.solutis.piloto.service;
 
-import br.com.solutis.piloto.entity.User;
-import br.com.solutis.piloto.repository.IUserRepository;
-import lombok.extern.slf4j.Slf4j;
+import br.com.solutis.piloto.entity.Company;
+import br.com.solutis.piloto.repository.ICompanyRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -32,48 +32,48 @@ import java.util.Optional;
  */
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@Slf4j
-public class UserServiceImpl implements UserService {
+@Log4j2
+public class CompanyServiceImpl implements CompanyService {
 
 	/**
 	 * Set data repositories.
 	 */
 	@Autowired
-	private IUserRepository iUserRepository;
+	private ICompanyRepository iCompanyRepository;
 
 	@Override
-	public User create (User user) throws Exception {
+	public Company create (Company company) throws Exception {
 		
-		log.info("Creating a new user.");
+		log.info("Creating a new Company.");
 		
 		try {
-			return iUserRepository.save(user);
+			return iCompanyRepository.save(company);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
 
 	@Override
-	public Optional<User> read (Long id) throws Exception {
+	public Optional<Company> read (String cnpj) throws Exception {
 		
-		log.info("Reading user by identification.");
+		log.info("Reading company by identification.");
 		
 		try {
-			return iUserRepository.findById(id);
+			return iCompanyRepository.findById(cnpj);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
 
 	@Override
-	public User update (Long id, User detail) throws Exception {
+	public Company update (String cnpj, Company detail) throws Exception {
 		
-		log.info("Updating user by identification and user details.");
+		log.info("Updating company by identification and user details.");
 		
 		try {
-			Optional<User> user = iUserRepository.findById(id);
-			if (user.isPresent()) {				
-				return iUserRepository.save(new User(id, detail.getName(), detail.getEmail()));
+			Optional<Company> company = iCompanyRepository.findById(cnpj);
+			if (company.isPresent()) {
+				return iCompanyRepository.save(new Company(cnpj, detail.getReasonSocial(), detail.getFantasyName(), detail.getCadastralSituation(), detail.getCadastralSituationDate()));
 			}
 			return null;
 		} catch (Exception e) {
@@ -82,15 +82,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean delete (Long id) throws Exception {
+	public boolean delete (String cnpj) throws Exception {
 		
-		log.info("Deleting user by identification.");
+		log.info("Deleting company by identification.");
 		
 		try {
-			Optional<User> user = iUserRepository.findById(id);
+			Optional<Company> user = iCompanyRepository.findById(cnpj);
 			
 			if (user.isPresent()) {				
-				iUserRepository.deleteById(id);
+				iCompanyRepository.deleteById(cnpj);
 				return true;
 			}
 			return false;

@@ -14,7 +14,7 @@
  */
 package br.com.solutis.piloto.repository;
 
-import br.com.solutis.piloto.entity.User;
+import br.com.solutis.piloto.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -25,8 +25,8 @@ import java.util.Optional;
  * Define the data repository for user operations.
  *
  */
-public interface IUserRepository extends JpaRepository<User, Long> {
+public interface ICompanyRepository extends JpaRepository<Company, String> {
 
-	Optional<User> findById (Long id);
+	Optional<Company> findById (String cnpj);
 
 }
