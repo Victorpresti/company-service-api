@@ -16,6 +16,8 @@ package br.com.solutis.piloto.repository;
 
 import br.com.solutis.piloto.util.AccountServiceUtil;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +41,13 @@ import java.util.Map;
  * JPA Persistence configurations.
  *
  */
-@Configuration
+
 @EnableJpaRepositories(basePackages = "br.com.solutis.piloto.entity")
-@Slf4j
+@Log4j2
+@Configuration
 public class Persistence {
 
-	@Bean
+	/*@Bean
     public ComboPooledDataSource dataSource() {
         
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -64,7 +67,7 @@ public class Persistence {
         dataSource.setMaxIdleTime(Integer.parseInt("300"));
  
         return dataSource;
-    }
+    }*/
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory (DataSource dataSource) {
