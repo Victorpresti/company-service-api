@@ -39,7 +39,7 @@ public class AccountApplication {
 	
 	@Bean
 	public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
-	    return factory -> factory.setContextPath("/account/api/v1");
+	    return factory -> factory.setContextPath("/company/api/v1");
 	}
 
 }

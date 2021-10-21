@@ -14,12 +14,11 @@
  */
 package br.com.solutis.piloto.endpoint;
 
-import br.com.solutis.piloto.entity.User;
+import br.com.solutis.piloto.entity.Company;
 import br.com.solutis.piloto.published.APIGenericResponse;
 import br.com.solutis.piloto.published.StatusResponse;
-import br.com.solutis.piloto.service.UserService;
+import br.com.solutis.piloto.service.CompaniesService;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,22 +37,22 @@ import java.util.Optional;
 
 @RestController
 @Log4j2
-public class UserRestWsEndpoint {
+public class CompanyRestWsEndpoint {
 
 	/**
 	 * Set services. 
 	 */
 	@Autowired
-	private UserService userService;
+	private CompaniesService companiesService;
 	
 	/**
 	 * End points definitions. 
 	 */	
-	@PostMapping(value = "/public/create/user", consumes = MediaType.APPLICATION_JSON_VALUE,  produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<?> create (@RequestBody User user) { 
+	@PostMapping(value = "/public/create/company", consumes = MediaType.APPLICATION_JSON_VALUE,  produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<?> create (@RequestBody Company company) {
 		
 		try {
-			return ResponseEntity.ok(new APIGenericResponse(userService.create(user), new StatusResponse("Request API is successfully", HttpStatus.CREATED)));
+			return ResponseEntity.ok(new APIGenericResponse(companiesService.create(company), new StatusResponse("Request API is successfully", HttpStatus.CREATED)));
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
@@ -61,11 +60,11 @@ public class UserRestWsEndpoint {
 		}		
 	}
 	
-	@GetMapping(value = "/public/read/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<?> read (@PathVariable(value = "id") Long id) { 
+	@GetMapping(value = "/public/read/company/{cnpj}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<?> read (@PathVariable(value = "cnpj") String cnpj) {
 		
 		try {
-			Optional<User> user = userService.read(id);
+			Optional<Company> user = companiesService.read(cnpj);
 			if (user.isPresent()) {
 				return ResponseEntity.ok(new APIGenericResponse(user.get(), new StatusResponse("Request API is successfully", HttpStatus.OK)));
 			} else {
@@ -78,15 +77,15 @@ public class UserRestWsEndpoint {
 		}		
 	}
 	
-	@PutMapping(value = "/public/update/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<?> update (@PathVariable(value = "id") Long id,  @Valid @RequestBody User detail) { 
+	@PutMapping(value = "/public/update/company/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<?> update (@PathVariable(value = "cnpj") String cnpj,  @Valid @RequestBody Company detail) {
 		
 		try {
-			User user = userService.update(id, detail);
-			if (user == null) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIGenericResponse(user, new StatusResponse("User not found.", HttpStatus.NOT_FOUND)));
+			Company company = companiesService.update(cnpj, detail);
+			if (company == null) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIGenericResponse(company, new StatusResponse("User not found.", HttpStatus.NOT_FOUND)));
 			}
-			return ResponseEntity.ok(new APIGenericResponse(user, new StatusResponse("Request API is successfully", HttpStatus.OK)));
+			return ResponseEntity.ok(new APIGenericResponse(company, new StatusResponse("Request API is successfully", HttpStatus.OK)));
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
@@ -94,11 +93,11 @@ public class UserRestWsEndpoint {
 		}		
 	}
 	
-	@DeleteMapping(value = "/public/delete/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<?> delete (@PathVariable(value = "id") Long id) {
+	@DeleteMapping(value = "/public/delete/company/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<?> delete (@PathVariable(value = "cnpj") String cnpj) {
 
 		try {
-			Boolean deleted = userService.delete(id);
+			Boolean deleted = companiesService.delete(cnpj);
 			if (deleted) {
 				return ResponseEntity.ok(new APIGenericResponse(deleted, new StatusResponse("Request API is successfully", HttpStatus.OK)));
 			}

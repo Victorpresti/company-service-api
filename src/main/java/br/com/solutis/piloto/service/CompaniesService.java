@@ -12,21 +12,26 @@
     | you entered with ProfitCode IT Solutions.
  +--
  */
-package br.com.solutis.piloto.repository;
+package br.com.solutis.piloto.service;
 
-import br.com.solutis.piloto.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.solutis.piloto.entity.Company;
 
 import java.util.Optional;
 
 /**
  * @author ProfitCode IT Solutions
  * 
- * Define the data repository for user operations.
+ * Service interface to User.
  *
  */
-public interface IUserRepository extends JpaRepository<User, Long> {
+public interface CompaniesService {
 
-	Optional<User> findById (Long id);
+	Company create (Company company) throws Exception;
 
+	Optional<Company> read (String cnpj) throws Exception;
+
+	Company update (String cnpj, Company detail) throws Exception;
+
+	boolean delete (String cnpj) throws Exception;
 }
+
