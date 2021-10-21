@@ -15,7 +15,7 @@
 package br.com.solutis.piloto.service;
 
 import br.com.solutis.piloto.entity.Company;
-import br.com.solutis.piloto.repository.ICompaniesRepository;
+import br.com.solutis.piloto.repository.ICompanyRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -33,21 +33,21 @@ import java.util.Optional;
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Log4j2
-public class CompaniesServiceImpl implements CompaniesService {
+public class CompanyServiceImpl implements CompanyService {
 
 	/**
 	 * Set data repositories.
 	 */
 	@Autowired
-	private ICompaniesRepository iCompaniesRepository;
+	private ICompanyRepository iCompanyRepository;
 
 	@Override
 	public Company create (Company company) throws Exception {
 		
-		log.info("Creating a new user.");
+		log.info("Creating a new Company.");
 		
 		try {
-			return iCompaniesRepository.save(company);
+			return iCompanyRepository.save(company);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -56,10 +56,10 @@ public class CompaniesServiceImpl implements CompaniesService {
 	@Override
 	public Optional<Company> read (String cnpj) throws Exception {
 		
-		log.info("Reading user by identification.");
+		log.info("Reading company by identification.");
 		
 		try {
-			return iCompaniesRepository.findById(cnpj);
+			return iCompanyRepository.findById(cnpj);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -68,12 +68,12 @@ public class CompaniesServiceImpl implements CompaniesService {
 	@Override
 	public Company update (String cnpj, Company detail) throws Exception {
 		
-		log.info("Updating user by identification and user details.");
+		log.info("Updating company by identification and user details.");
 		
 		try {
-			Optional<Company> user = iCompaniesRepository.findById(cnpj);
-			if (user.isPresent()) {				
-				return iCompaniesRepository.save(new Company(detail.getCnpj(), detail.getReasonSocial(), detail.getFantasyName(), detail.getCadastralSituation(), detail.getCadastralSituationDate()));
+			Optional<Company> company = iCompanyRepository.findById(cnpj);
+			if (company.isPresent()) {
+				return iCompanyRepository.save(new Company(cnpj, detail.getReasonSocial(), detail.getFantasyName(), detail.getCadastralSituation(), detail.getCadastralSituationDate()));
 			}
 			return null;
 		} catch (Exception e) {
@@ -84,13 +84,13 @@ public class CompaniesServiceImpl implements CompaniesService {
 	@Override
 	public boolean delete (String cnpj) throws Exception {
 		
-		log.info("Deleting user by identification.");
+		log.info("Deleting company by identification.");
 		
 		try {
-			Optional<Company> user = iCompaniesRepository.findById(cnpj);
+			Optional<Company> user = iCompanyRepository.findById(cnpj);
 			
 			if (user.isPresent()) {				
-				iCompaniesRepository.deleteById(cnpj);
+				iCompanyRepository.deleteById(cnpj);
 				return true;
 			}
 			return false;

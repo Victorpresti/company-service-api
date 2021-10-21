@@ -30,7 +30,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ServletComponentScan
 @SpringBootApplication
 @EnableJpaRepositories
-@EnableCaching
 public class AccountApplication {
 
 	public static void main(String[] args) throws Exception {

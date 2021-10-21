@@ -30,7 +30,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Company extends BaseEntity<Long> {
+public class Company {
 
 	private static final long serialVersionUID = -2096127641665459704L;
 

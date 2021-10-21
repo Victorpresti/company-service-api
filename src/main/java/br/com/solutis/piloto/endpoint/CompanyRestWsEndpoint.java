@@ -17,7 +17,7 @@ package br.com.solutis.piloto.endpoint;
 import br.com.solutis.piloto.entity.Company;
 import br.com.solutis.piloto.published.APIGenericResponse;
 import br.com.solutis.piloto.published.StatusResponse;
-import br.com.solutis.piloto.service.CompaniesService;
+import br.com.solutis.piloto.service.CompanyService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +43,7 @@ public class CompanyRestWsEndpoint {
 	 * Set services. 
 	 */
 	@Autowired
-	private CompaniesService companiesService;
+	private CompanyService companyService;
 	
 	/**
 	 * End points definitions. 
@@ -52,7 +52,7 @@ public class CompanyRestWsEndpoint {
 	public @ResponseBody ResponseEntity<?> create (@RequestBody Company company) {
 		
 		try {
-			return ResponseEntity.ok(new APIGenericResponse(companiesService.create(company), new StatusResponse("Request API is successfully", HttpStatus.CREATED)));
+			return ResponseEntity.ok(new APIGenericResponse(companyService.create(company), new StatusResponse("Request API is successful", HttpStatus.CREATED)));
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
@@ -64,11 +64,11 @@ public class CompanyRestWsEndpoint {
 	public @ResponseBody ResponseEntity<?> read (@PathVariable(value = "cnpj") String cnpj) {
 		
 		try {
-			Optional<Company> user = companiesService.read(cnpj);
+			Optional<Company> user = companyService.read(cnpj);
 			if (user.isPresent()) {
-				return ResponseEntity.ok(new APIGenericResponse(user.get(), new StatusResponse("Request API is successfully", HttpStatus.OK)));
+				return ResponseEntity.ok(new APIGenericResponse(user.get(), new StatusResponse("Request API is successful", HttpStatus.OK)));
 			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIGenericResponse(null, new StatusResponse("User not found.", HttpStatus.NOT_FOUND)));
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIGenericResponse(null, new StatusResponse("Company not found.", HttpStatus.NOT_FOUND)));
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -77,15 +77,15 @@ public class CompanyRestWsEndpoint {
 		}		
 	}
 	
-	@PutMapping(value = "/public/update/company/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/public/update/company/{cnpj}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<?> update (@PathVariable(value = "cnpj") String cnpj,  @Valid @RequestBody Company detail) {
 		
 		try {
-			Company company = companiesService.update(cnpj, detail);
+			Company company = companyService.update(cnpj, detail);
 			if (company == null) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIGenericResponse(company, new StatusResponse("User not found.", HttpStatus.NOT_FOUND)));
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIGenericResponse(company, new StatusResponse("Company not found.", HttpStatus.NOT_FOUND)));
 			}
-			return ResponseEntity.ok(new APIGenericResponse(company, new StatusResponse("Request API is successfully", HttpStatus.OK)));
+			return ResponseEntity.ok(new APIGenericResponse(company, new StatusResponse("Request API is successful", HttpStatus.OK)));
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
@@ -93,15 +93,15 @@ public class CompanyRestWsEndpoint {
 		}		
 	}
 	
-	@DeleteMapping(value = "/public/delete/company/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "/public/delete/company/{cnpj}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<?> delete (@PathVariable(value = "cnpj") String cnpj) {
 
 		try {
-			Boolean deleted = companiesService.delete(cnpj);
+			Boolean deleted = companyService.delete(cnpj);
 			if (deleted) {
-				return ResponseEntity.ok(new APIGenericResponse(deleted, new StatusResponse("Request API is successfully", HttpStatus.OK)));
+				return ResponseEntity.ok(new APIGenericResponse(deleted, new StatusResponse("Request API is successful", HttpStatus.OK)));
 			}
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIGenericResponse(deleted, new StatusResponse("User not found.", HttpStatus.NOT_FOUND)));
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIGenericResponse(deleted, new StatusResponse("Company not found.", HttpStatus.NOT_FOUND)));
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
