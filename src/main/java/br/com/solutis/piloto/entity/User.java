@@ -43,5 +43,4 @@ public class User extends BaseEntity<Long> {
 	
 	@Column(name="email", length=250, nullable=false, unique=false)
 	private String email;
-
 }

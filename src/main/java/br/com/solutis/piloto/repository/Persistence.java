@@ -42,16 +42,16 @@ import java.util.Map;
  *
  */
 
-@EnableJpaRepositories(basePackages = "br.com.solutis.piloto.entity")
 @Log4j2
 @Configuration
+@EnableJpaRepositories(basePackages = "br.com.solutis.piloto.entity")
 public class Persistence {
 
-	/*@Bean
+	@Bean
     public ComboPooledDataSource dataSource() {
-        
+
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
- 
+
         try {
             dataSource.setDriverClass(System.getenv().get("DATABASE_DRIVER_CLASS"));
         } catch (PropertyVetoException e){
@@ -67,7 +67,7 @@ public class Persistence {
         dataSource.setMaxIdleTime(Integer.parseInt("300"));
  
         return dataSource;
-    }*/
+    }
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory (DataSource dataSource) {
