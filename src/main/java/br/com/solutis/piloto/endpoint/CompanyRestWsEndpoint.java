@@ -64,9 +64,9 @@ public class CompanyRestWsEndpoint {
 	public @ResponseBody ResponseEntity<?> read (@PathVariable(value = "cnpj") String cnpj) {
 		
 		try {
-			Optional<Company> user = companyService.read(cnpj);
-			if (user.isPresent()) {
-				return ResponseEntity.ok(new APIGenericResponse(user.get(), new StatusResponse("Request API is successful", HttpStatus.OK)));
+			Optional<Company> company = companyService.read(cnpj);
+			if (company.isPresent()) {
+				return ResponseEntity.ok(new APIGenericResponse(company.get(), new StatusResponse("Request API is successful", HttpStatus.OK)));
 			} else {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIGenericResponse(null, new StatusResponse("Company not found.", HttpStatus.NOT_FOUND)));
 			}
